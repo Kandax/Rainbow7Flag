@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30011.22
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Rainbow7Flag", "Rainbow7Flag\Rainbow7Flag.vcxproj", "{DEE6CF90-48A7-4729-8B1E-D3261FBA4407}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DEE6CF90-48A7-4729-8B1E-D3261FBA4407}.Debug|x64.ActiveCfg = Debug|x64
+		{DEE6CF90-48A7-4729-8B1E-D3261FBA4407}.Debug|x64.Build.0 = Debug|x64
+		{DEE6CF90-48A7-4729-8B1E-D3261FBA4407}.Release|x64.ActiveCfg = Release|x64
+		{DEE6CF90-48A7-4729-8B1E-D3261FBA4407}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {AF8A20DF-56D8-46C4-84B4-52343DF5A87E}
+	EndGlobalSection
+EndGlobal
