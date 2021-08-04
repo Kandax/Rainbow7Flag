@@ -1,4 +1,9 @@
 #pragma once
+
+#include <vector>
+
+
+
 #include "Object.h"
 #include <SFML/Graphics.hpp>
 #include <box2d/box2d.h>
@@ -21,6 +26,8 @@ public:
 
 
 	b2Vec2 getPosition() const;
+
+
 	sf::ConvexShape* getRenderShape();
 	b2Body* getBody();
 	b2BodyDef& getBodyDef();
@@ -31,6 +38,10 @@ public:
 
 
 private:
+	
+	
+	
+	
 	float mWidth;
 	float mHeight;
 
@@ -42,12 +53,16 @@ private:
 
 	b2Vec2 mPosition;
 	b2World* mWorld;
+
+	b2PolygonShape mB2Shape;
+
+	
+
 	sf::ConvexShape mSfShape;
 	sf::ConvexShape mCollisionShape;
 
-
-	b2PolygonShape mB2Shape;
 	b2Fixture* mFixture;
+	
 
 };
 

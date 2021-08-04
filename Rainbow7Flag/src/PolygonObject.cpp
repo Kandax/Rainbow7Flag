@@ -24,6 +24,8 @@ PolygonObject::PolygonObject(b2World* world, b2BodyType bodyType, float position
 	, mWidthCollision(mWidth)
 	, mHeightCollision(mHeight)
 {
+
+	
 	mSfShape.setPointCount(4);
 	mSfShape.setPoint(0, sf::Vector2f(0, 0));//0,0
 	mSfShape.setPoint(1, sf::Vector2f(mWidth, 0));//1,0
@@ -31,6 +33,9 @@ PolygonObject::PolygonObject(b2World* world, b2BodyType bodyType, float position
 	mSfShape.setPoint(3, sf::Vector2f(0, mHeight));//0,1
 
 	mSfShape.setOrigin(sf::Vector2f(mWidth / 2, mHeight / 2));
+	
+
+	
 	
 	mCollisionShape.setPointCount(4);
 	mCollisionShape.setPoint(0, sf::Vector2f(0, 0));//0,0
@@ -44,7 +49,7 @@ PolygonObject::PolygonObject(b2World* world, b2BodyType bodyType, float position
 	mCollisionShape.setFillColor(sf::Color::Color(0, 255, 0, 50));
 
 	mCollisionShape.setOutlineThickness(1);
-
+	
 
 
 	mBodyDef.type = bodyType;
@@ -60,6 +65,7 @@ PolygonObject::PolygonObject(b2World* world, b2BodyType bodyType, float position
 	mFixtureDef.density = 10.f;
 	mFixtureDef.friction = 1.f;
 
+	
 	
 	mFixture = mBody->CreateFixture(&mFixtureDef);
 	
@@ -133,6 +139,9 @@ void PolygonObject::update()
 	mRotation = mBody->GetAngle() * ToDegrees;
 
 
+	
+
+	
 	mSfShape.setPosition(sf::Vector2f(mPosition.x, mPosition.y));
 	mSfShape.setRotation(mRotation);
 

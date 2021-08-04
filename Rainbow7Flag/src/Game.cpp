@@ -21,13 +21,13 @@ Game::Game()
 void Game::run()
 {
 	while (mWindow.isOpen()) {
-		mETime.run();
 		events();
 		input();
 		updatePhysics();
 		update();
 		render();
-		mETime.end();
+		mETime.run();
+		
 	}
 
 }
@@ -54,6 +54,8 @@ void Game::input()
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)) {
 		mPO1.getBody()->SetLinearVelocity(b2Vec2(-10, mPO1.getBody()->GetLinearVelocity().y));
 	}
+
+	
 
 
 }
