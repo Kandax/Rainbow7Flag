@@ -11,10 +11,11 @@ Game::Game()
 	, mTimeStep(1.0f/60.0f)
 	, mVelocityIterations(6)
 	, positionIterations(2)
+	, mShowCollision(false)
 	, mPO1(&mWorld, b2_dynamicBody, 100, 100, 100,100)
 {
+	mPO1.addComponent();
 	
-
 
 }
 
@@ -48,6 +49,13 @@ void Game::events()
 
 void Game::input()
 {
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::F1)) {
+		mShowCollision = true;
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::F2)) {
+		mShowCollision = false;
+	}
+
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)) {
 		mPO1.getBody()->SetLinearVelocity(b2Vec2( 10,mPO1.getBody()->GetLinearVelocity().y));
 	}
@@ -85,6 +93,9 @@ void Game::render()
 	
 	mWindow.clear();
 	mPO1.draw(&mWindow);
+	if (mShowCollision) {
+		mPO1.drawCollision(&mWindow);
+	}
 	mWindow.display();
 
 

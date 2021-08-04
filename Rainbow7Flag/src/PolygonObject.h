@@ -9,8 +9,13 @@
 #include <box2d/box2d.h>
 
 
+struct Component {
+	sf::ConvexShape sfShape;
+	sf::ConvexShape collisionShape;
 
-//alkskdjf;lkjasdflkjhaslkdjfh
+	b2Fixture* fixture;
+};
+
 
 class PolygonObject : public Object
 {
@@ -29,9 +34,13 @@ public:
 
 
 	sf::ConvexShape* getRenderShape();
+
 	b2Body* getBody();
 	b2BodyDef& getBodyDef();
 	b2Fixture* getFixture();
+
+	Component& getComponent(int id);
+	void addComponent();
 
 
 	float getRotation() const;
@@ -56,7 +65,7 @@ private:
 
 	b2PolygonShape mB2Shape;
 
-	
+	std::vector<Component> mCompontents;
 
 	sf::ConvexShape mSfShape;
 	sf::ConvexShape mCollisionShape;

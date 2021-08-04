@@ -40,6 +40,8 @@ private:
 	int32 mVelocityIterations;
 	int32 positionIterations;
 
+	bool mShowCollision;
+
 
 	PolygonObject mPO1;
 
