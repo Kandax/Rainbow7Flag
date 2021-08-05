@@ -6,15 +6,19 @@ Game::Game()
 	, mWindowName("Rainbow7Flag")
 	, mWindow(sf::VideoMode(mWindowWidth, mWindowHeight), mWindowName)
 	, mEvent()
-	, mGravity(0.0f,10.0f)
+	, mGravity(0.0f, 10.0f)
 	, mWorld(mGravity)
-	, mTimeStep(1.0f/60.0f)
+	, mTimeStep(1.0f / 60.0f)
 	, mVelocityIterations(6)
 	, positionIterations(2)
 	, mShowCollision(false)
-	, mPO1(&mWorld, b2_dynamicBody, 100, 100, 100,100)
+	, mPO1(&mWorld, b2_dynamicBody, 100, 100, 100, 100)
+	, mPOS1(&mWorld, b2_staticBody, 100, 00, 200, 20)
 {
-	mPO1.addComponent();
+	float lSize = 300;
+
+	mPO1.addComponent(10, 10 , lSize/2, lSize/2);
+
 	
 
 }
@@ -41,7 +45,9 @@ void Game::events()
 		case sf::Event::Closed:
 			mWindow.close();
 			break;
+		
 		}
+		
 	}
 
 
@@ -55,6 +61,10 @@ void Game::input()
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::F2)) {
 		mShowCollision = false;
 	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape)) {
+		mWindow.close();
+	}
+
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)) {
 		mPO1.getBody()->SetLinearVelocity(b2Vec2( 10,mPO1.getBody()->GetLinearVelocity().y));
@@ -83,6 +93,7 @@ void Game::update()
 {
 
 	mPO1.update();
+	mPOS1.update();
 }
 
 void Game::render()
@@ -93,8 +104,10 @@ void Game::render()
 	
 	mWindow.clear();
 	mPO1.draw(&mWindow);
+	mPOS1.draw(&mWindow);
 	if (mShowCollision) {
 		mPO1.drawCollision(&mWindow);
+		mPOS1.drawCollision(&mWindow);
 	}
 	mWindow.display();
 

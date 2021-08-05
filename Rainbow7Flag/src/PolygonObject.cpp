@@ -253,9 +253,10 @@ Component& PolygonObject::getComponent(int id)
 	return mCompontents.at(id);
 }
 
-void PolygonObject::addComponent()
+void PolygonObject::addComponent( float offsetX, float offsetY, float boxWidthInPixels, float boxHeightInPixels)
 {
-	mCompontents.push_back(Component());
+	mCompontents.push_back(Component(mBody, offsetX, offsetY, boxWidthInPixels, boxHeightInPixels));
+
 }
 
 

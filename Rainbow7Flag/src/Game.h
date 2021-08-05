@@ -43,7 +43,7 @@ private:
 	bool mShowCollision;
 
 
-	PolygonObject mPO1;
+	PolygonObject mPO1,mPOS1;
 
 
 };
