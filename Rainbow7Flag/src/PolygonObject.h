@@ -1,7 +1,7 @@
 #pragma once
 
 #include <vector>
-
+#include <iostream>
 
 
 #include "Object.h"
@@ -15,7 +15,7 @@ struct Component {
 
 	}
 	Component(b2Body* body, float offsetX, float offsetY, float boxWidthInPixels, float boxHeightInPixels ) 
-		
+		:mBody(body)
 	{
 		//mBodyDef.type = bodyType;
 	//	mBodyDef.position.Set(offsetX / mScale, offsetY / mScale);
@@ -27,7 +27,7 @@ struct Component {
 
 		sfShape.setFillColor(sf::Color::Color(0, 255, 255, 255));
 		
-		sfShape.setOrigin(sf::Vector2f(boxWidthInPixels / 2, boxHeightInPixels / 2));
+		sfShape.setOrigin(sf::Vector2f(boxWidthInPixels / 2 - offsetX, boxHeightInPixels / 2 - offsetY));
 
 
 		collisionShape.setPointCount(4);
@@ -45,18 +45,24 @@ struct Component {
 
 
 
-
-		mB2Shape.SetAsBox(boxWidthInPixels * 0.5f, boxHeightInPixels * 0.5f, b2Vec2(offsetX,offsetY),0);
+		b2Vec2 offset;
+		offset.Set(offsetX/mScale, offsetY/mScale);
+		mB2Shape.SetAsBox(boxWidthInPixels/ mScale * 0.5f, boxHeightInPixels/ mScale * 0.5f, offset,body->GetAngle());
 		
 		mFixtureDef.shape = &mB2Shape;
-		mFixtureDef.density = 10.f;
+		mFixtureDef.density = 0.f;
 		mFixtureDef.friction = 1.f;
 
-		fixture = body->CreateFixture(&mFixtureDef);
-		fixture->SetSensor(true);
+		fixture = mBody->CreateFixture(&mFixtureDef);
+		//fixture->SetSensor(true);
 	}
 	
-	
+	~Component() {
+		//mBody->DestroyFixture(fixture);
+
+		//fixture = nullptr;
+		//mBody = nullptr;
+	}
 	sf::ConvexShape sfShape;
 	sf::ConvexShape collisionShape;
 
@@ -66,7 +72,7 @@ private:
 	b2BodyDef mBodyDef;
 	float mScale = 16;
 	b2FixtureDef mFixtureDef;
-
+	b2Body* mBody;
 };
 
 
@@ -97,7 +103,7 @@ public:
 
 
 	float getRotation() const;
-
+	void deleteParentFixture();
 
 private:
 	

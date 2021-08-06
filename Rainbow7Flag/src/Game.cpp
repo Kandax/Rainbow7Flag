@@ -6,19 +6,18 @@ Game::Game()
 	, mWindowName("Rainbow7Flag")
 	, mWindow(sf::VideoMode(mWindowWidth, mWindowHeight), mWindowName)
 	, mEvent()
-	, mGravity(0.0f, 10.0f)
+	, mGravity(0.0f, 0.0f)
 	, mWorld(mGravity)
 	, mTimeStep(1.0f / 60.0f)
 	, mVelocityIterations(6)
 	, positionIterations(2)
 	, mShowCollision(false)
 	, mPO1(&mWorld, b2_dynamicBody, 100, 100, 100, 100)
-	, mPOS1(&mWorld, b2_staticBody, 100, 00, 200, 20)
+	, mPOS1(&mWorld, b2_staticBody, 100, 0, 200, 20)
 {
-	float lSize = 300;
+	float lSize = 100;
 
-	mPO1.addComponent(10, 10 , lSize/2, lSize/2);
-
+	mPO1.addComponent(100, 100 , lSize, lSize);
 	
 
 }
@@ -30,9 +29,8 @@ void Game::run()
 		input();
 		updatePhysics();
 		update();
-		render();
+		render();	
 		mETime.run();
-		
 	}
 
 }
@@ -66,15 +64,32 @@ void Game::input()
 	}
 
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)) {
-		mPO1.getBody()->SetLinearVelocity(b2Vec2( 10,mPO1.getBody()->GetLinearVelocity().y));
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W)) {
+		mMove.Set(0, -10);
 	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)) {
-		mPO1.getBody()->SetLinearVelocity(b2Vec2(-10, mPO1.getBody()->GetLinearVelocity().y));
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S)) {
+		mMove.Set(0, 10);
 	}
 
-	
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)) {
+		mMove.Set(10, 0);
+	}
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)) {
+		mMove.Set(-10, 0);
+	}
+	else {
+		mMove.Set(0, 0);
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left)) {
+		mPO1.getBody()->ApplyTorque(-4000, 1);
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right)) {
+		mPO1.getBody()->ApplyTorque(4000, 1);
+	}
 
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space)) {
+		mPO1.deleteParentFixture();
+	}
 
 }
 
@@ -84,7 +99,9 @@ void Game::updatePhysics()
 
 	//mGravity.Set(0, 10 * mETime.getElapsedTime());
 	//mWorld.SetGravity(mGravity);
-	
+	mPO1.getBody()->SetLinearVelocity(mMove);
+
+
 	mWorld.Step(mTimeStep, mVelocityIterations, positionIterations);
 	
 }
@@ -99,7 +116,7 @@ void Game::update()
 void Game::render()
 {
 
-	std::cout <<"Time used: "<<mETime.getTimeUsed()<< " Elapsed Time" << mETime.getElapsedTime() << std::endl;
+	std::cout <<"Time used: "<<mETime.getTimeUsed() * 1000<< " ms Elapsed Time: " << mETime.getElapsedTime() * 1000<< " ms " << std::endl;
 
 	
 	mWindow.clear();

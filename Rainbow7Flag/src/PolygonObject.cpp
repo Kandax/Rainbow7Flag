@@ -265,3 +265,19 @@ float PolygonObject::getRotation() const
 {
 	return mRotation;
 }
+
+void PolygonObject::deleteParentFixture()
+{
+	static bool isDestroyed = false;
+	if (!isDestroyed) {
+	mBody->DestroyFixture(mFixture);
+	mFixture = nullptr;
+		//mWorld->DestroyBody(mBody);
+	isDestroyed = true;
+	std::cout << "is destroyed" << std::endl;
+	}
+	else {
+
+	std::cout << "is already destroyed" << std::endl;
+	}
+}

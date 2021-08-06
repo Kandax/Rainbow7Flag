@@ -1,7 +1,8 @@
 #pragma once
 #include <string>
 #include <iostream>
-
+#define _CRTDBG_MAP_ALLOC
+#include <crtdbg.h>
 
 #include "box2d/box2d.h"
 #include "SFML/Graphics.hpp"
@@ -44,7 +45,7 @@ private:
 
 
 	PolygonObject mPO1,mPOS1;
-
+	b2Vec2 mMove;
 
 };
 
