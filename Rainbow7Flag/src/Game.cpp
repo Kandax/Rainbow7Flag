@@ -6,20 +6,22 @@ Game::Game()
 	, mWindowName("Rainbow7Flag")
 	, mWindow(sf::VideoMode(mWindowWidth, mWindowHeight), mWindowName)
 	, mEvent()
-	, mGravity(0.0f, 0.0f)
+	, mGravity(0.0f, 10.0f)
 	, mWorld(mGravity)
 	, mTimeStep(1.0f / 60.0f)
 	, mVelocityIterations(6)
 	, positionIterations(2)
 	, mShowCollision(false)
 	, mPO1(&mWorld, b2_dynamicBody, 100, 100, 100, 100)
-	, mPOS1(&mWorld, b2_staticBody, 100, 0, 200, 20)
+	, mPOS1(&mWorld, b2_staticBody, 300, 300, 200, 20)
 {
 	float lSize = 100;
 
 	mPO1.addComponent(100, 100 , lSize, lSize);
-	
-
+	//mPO1.getComponent(1).fixture->SetSensor(true);
+	mPO1.getComponent(0).renderShape.setFillColor(sf::Color::Color(0,0,255,150));
+	mPO1.addComponent(0, -50, 20,50);
+	mPO1.getBody()->SetGravityScale(1);
 }
 
 void Game::run()

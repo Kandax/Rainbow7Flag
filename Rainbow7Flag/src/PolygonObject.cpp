@@ -24,58 +24,15 @@ PolygonObject::PolygonObject(b2World* world, b2BodyType bodyType, float position
 	, mWidthCollision(mWidth)
 	, mHeightCollision(mHeight)
 {
-	mCompontents.push_back(Component());
-	mCompontents.back().sfShape.setPointCount(4);
-	mCompontents.back().sfShape.setPoint(0, sf::Vector2f(0, 0));//0,0
-	mCompontents.back().sfShape.setPoint(1, sf::Vector2f(mWidth, 0));//1,0
-	mCompontents.back().sfShape.setPoint(2, sf::Vector2f(mWidth, mHeight));//1,1
-	mCompontents.back().sfShape.setPoint(3, sf::Vector2f(0, mHeight));//0,1
-
-	mCompontents.back().sfShape.setOrigin(sf::Vector2f(mWidth / 2, mHeight / 2));
-	
-	//mSfShape.setPointCount(4);
-	//mSfShape.setPoint(0, sf::Vector2f(0, 0));//0,0
-	//mSfShape.setPoint(1, sf::Vector2f(mWidth, 0));//1,0
-	//mSfShape.setPoint(2, sf::Vector2f(mWidth,mHeight));//1,1
-	//mSfShape.setPoint(3, sf::Vector2f(0, mHeight));//0,1
-
-	//mSfShape.setOrigin(sf::Vector2f(mWidth / 2, mHeight / 2));
-	
-	mCompontents.back().collisionShape.setPointCount(4);
-	mCompontents.back().collisionShape.setPoint(0, sf::Vector2f(0, 0));//0,0
-	mCompontents.back().collisionShape.setPoint(1, sf::Vector2f(mWidth, 0));//1,0
-	mCompontents.back().collisionShape.setPoint(2, sf::Vector2f(mWidth, mHeight));//1,1
-	mCompontents.back().collisionShape.setPoint(3, sf::Vector2f(0, mHeight));//0,1
-
-	mCompontents.back().collisionShape.setOrigin(sf::Vector2f(mWidth / 2, mHeight / 2));
-
-	mCompontents.back().collisionShape.setOutlineColor(sf::Color::Color(0, 255, 0, 200));
-	mCompontents.back().collisionShape.setFillColor(sf::Color::Color(0, 255, 0, 50));
-
-	mCompontents.back().collisionShape.setOutlineThickness(1);
-	
-	
-	//mCollisionShape.setPointCount(4);
-	//mCollisionShape.setPoint(0, sf::Vector2f(0, 0));//0,0
-	//mCollisionShape.setPoint(1, sf::Vector2f(mWidth, 0));//1,0
-	//mCollisionShape.setPoint(2, sf::Vector2f(mWidth, mHeight));//1,1
-	//mCollisionShape.setPoint(3, sf::Vector2f(0, mHeight));//0,1
-
-	//mCollisionShape.setOrigin(sf::Vector2f(mWidth / 2, mHeight / 2));
-
-	//mCollisionShape.setOutlineColor(sf::Color::Color(0,255,0,200));
-	//mCollisionShape.setFillColor(sf::Color::Color(0, 255, 0, 50));
-
-	//mCollisionShape.setOutlineThickness(1);
-	
-
 
 	mBodyDef.type = bodyType;
 	mBodyDef.position.Set(mPosition.x/mScale, mPosition.y / mScale);
 	////////////////
-	mBodyDef.allowSleep = true;
+	//mBodyDef.allowSleep = true;
 	///////////////
 	mBody = mWorld->CreateBody(&mBodyDef);
+
+	mCompontents.push_back(Component(mBody, 0, 0, boxWidthInPixels, boxHeightInPixels));
 
 	mB2Shape.SetAsBox(mWidthCollision /mScale / 2, mHeightCollision / mScale / 2);
 
@@ -86,7 +43,7 @@ PolygonObject::PolygonObject(b2World* world, b2BodyType bodyType, float position
 	
 	
 	mCompontents.back().fixture = mBody->CreateFixture(&mFixtureDef);
-	//mFixture = mBody->CreateFixture(&mFixtureDef);
+	
 
 }
 
@@ -125,7 +82,7 @@ PolygonObject::PolygonObject(b2World* world, b2BodyType bodyType, float position
 	mBodyDef.type = bodyType;
 	mBodyDef.position.Set(mPosition.x / mScale, mPosition.y / mScale);
 	////////////
-	mBodyDef.bullet = true;
+	//mBodyDef.bullet = true;
 	////////////
 
 	mBody = mWorld->CreateBody(&mBodyDef);
@@ -143,7 +100,7 @@ PolygonObject::PolygonObject(b2World* world, b2BodyType bodyType, float position
 PolygonObject::~PolygonObject()
 {
 	//mWorld->DestroyBody(mBody);
-	mBody = nullptr;
+	//mBody = nullptr;
 }
 
 void PolygonObject::update()
@@ -158,11 +115,11 @@ void PolygonObject::update()
 
 	for (auto& lCompontent : mCompontents) {
 
-		lCompontent.sfShape.setPosition(sf::Vector2f(mPosition.x, mPosition.y));
-		lCompontent.sfShape.setRotation(mRotation);
+		lCompontent.renderShape.setPosition(sf::Vector2f(mPosition.x, mPosition.y));
+		lCompontent.renderShape.setRotation(mRotation);
 
-		lCompontent.collisionShape.setPosition(sf::Vector2f(mPosition.x, mPosition.y));
-		lCompontent.collisionShape.setRotation(mRotation);
+		lCompontent.renderCollisionShape.setPosition(sf::Vector2f(mPosition.x, mPosition.y));
+		lCompontent.renderCollisionShape.setRotation(mRotation);
 	}
 	
 
@@ -179,7 +136,7 @@ void PolygonObject::update()
 void PolygonObject::draw(sf::RenderWindow* window)
 {
 	for (int i = mCompontents.size() - 1; i >= 0; --i) {
-		window->draw(mCompontents[i].sfShape);
+		window->draw(mCompontents[i].renderShape);
 	}
 	
 	/*for (std::vector<Component>::reverse_iterator it = mCompontents.rbegin; it != mCompontents.rend(); ++it) {
@@ -196,13 +153,13 @@ void PolygonObject::drawCollision(sf::RenderWindow* window)
 
 
 		if (mBody->IsAwake()) {
-			mCompontents[i].collisionShape.setOutlineColor(sf::Color::Color(0, 255, 0, 200));
+			mCompontents[i].renderCollisionShape.setOutlineColor(sf::Color::Color(0, 255, 0, 200));
 		}
 		else {
-			mCompontents[i].collisionShape.setOutlineColor(sf::Color::Color(255, 0, 0, 200));
+			mCompontents[i].renderCollisionShape.setOutlineColor(sf::Color::Color(255, 0, 0, 200));
 		}
 
-		window->draw(mCompontents[i].collisionShape);
+		window->draw(mCompontents[i].renderCollisionShape);
 	}
 
 	/*if (mBody->IsAwake()) {
@@ -270,7 +227,7 @@ void PolygonObject::deleteParentFixture()
 {
 	static bool isDestroyed = false;
 	if (!isDestroyed) {
-	mBody->DestroyFixture(mFixture);
+	mBody->DestroyFixture(mCompontents.front().fixture);
 	mFixture = nullptr;
 		//mWorld->DestroyBody(mBody);
 	isDestroyed = true;

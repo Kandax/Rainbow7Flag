@@ -139,6 +139,7 @@
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)External\SFML-2.5.1\include;$(SolutionDir)External\Box2D\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <FloatingPointModel>Precise</FloatingPointModel>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -150,6 +151,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Component.cpp" />
     <ClCompile Include="src\ElapsedTime.cpp" />
     <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\Main.cpp" />
@@ -157,6 +159,7 @@
     <ClCompile Include="src\PolygonObject.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Component.h" />
     <ClInclude Include="src\ElapsedTime.h" />
     <ClInclude Include="src\Game.h" />
     <ClInclude Include="src\Object.h" />
