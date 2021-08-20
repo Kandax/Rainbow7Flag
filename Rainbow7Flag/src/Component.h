@@ -10,10 +10,14 @@ class Component
 {
 public:
 	Component();
-	Component(b2Body* body, float offsetX, float offsetY, float boxWidthInPixels, float boxHeightInPixels);
-	Component(b2Body* body, float offsetX, float offsetY, float boxWidthInPixels, float boxHeightInPixels, float CollisionBoxWidthInPixels, float CollisionBoxHeightInPixels);
+	Component(b2Body* body, float offsetX = 0.f, float offsetY = 0.f, float boxWidthInPixels = 32.f, float boxHeightInPixels = 32.f);
+	Component(b2Body* body, float offsetX , float offsetY , float boxWidthInPixels , float boxHeightInPixels, float collisionBoxWidthInPixels, float collisionBoxHeightInPixels);
 	~Component();
 public:
+
+	void setStartingFixture(float density = 10.f , float friction = 1.f);
+
+
 	sf::ConvexShape& getRenderShape();
 	sf::ConvexShape& getRenderCollisionShape();
 	b2Fixture* getFixture();

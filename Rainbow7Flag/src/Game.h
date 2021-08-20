@@ -1,8 +1,8 @@
 #pragma once
 #include <string>
 #include <iostream>
-#define _CRTDBG_MAP_ALLOC
-#include <crtdbg.h>
+//#define _CRTDBG_MAP_ALLOC
+//#include <crtdbg.h>
 
 #include "box2d/box2d.h"
 #include "SFML/Graphics.hpp"
@@ -44,7 +44,8 @@ private:
 	bool mShowCollision;
 
 
-	PolygonObject mPO1,mPOS1;
+	PolygonObject mPO1,mPOS1, mPO2;
+	std::vector<PolygonObject> mListOfObjects;
 	b2Vec2 mMove;
 
 };

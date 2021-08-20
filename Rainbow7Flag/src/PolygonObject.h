@@ -29,7 +29,7 @@ public:
 	b2Vec2 getPosition() const;
 
 
-	sf::ConvexShape* getRenderShape();
+	
 
 	b2Body* getBody();
 	b2BodyDef& getBodyDef();
@@ -37,6 +37,7 @@ public:
 
 	Component& getComponent(int id);
 	void addComponent(float offsetX, float offsetY, float boxWidthInPixels, float boxHeightInPixels);
+	void addComponent(float  offsetX, float offsetY, float boxWidthInPixels, float boxHeightInPixels, float collisionBoxWidthInPixels, float collisionBoxHeightInPixels);
 
 
 	float getRotation() const;
@@ -63,11 +64,8 @@ private:
 
 	std::vector<Component> mCompontents;
 
-	sf::ConvexShape mSfShape;
-	sf::ConvexShape mCollisionShape;
-
 	b2Fixture* mFixture;
-	
+	bool isDestroyedBody;
 
 };
 
