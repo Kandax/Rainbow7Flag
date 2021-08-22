@@ -41,7 +41,19 @@ private:
 	int32 positionIterations;
 
 
-	PolygonObject mPO1;
+	float mScale;
+
+	PolygonObject mPO1, mPOS1;
+
+
+	b2BodyDef mBodyDef;
+	b2Body* mBody;
+	sf::RectangleShape mSFBodyShape;
+
+	b2PolygonShape mShape;
+	b2FixtureDef mFixtureDef;
+	b2Fixture* mFixture;
+	b2Fixture* mFixture2;
 
 
 };

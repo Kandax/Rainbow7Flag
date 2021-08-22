@@ -34,7 +34,7 @@ PolygonObject::PolygonObject(b2World* world, b2BodyType bodyType, float position
 
 	mSfShape.setOrigin(sf::Vector2f(mWidth / 2, mHeight / 2));
 	
-
+	mSfShape.setFillColor(sf::Color::Blue);
 	
 	
 	mCollisionShape.setPointCount(4);
@@ -88,7 +88,7 @@ PolygonObject::PolygonObject(b2World* world, b2BodyType bodyType, float position
 	mSfShape.setPoint(3, sf::Vector2f(0, mHeight));//0,1
 
 	mSfShape.setOrigin(sf::Vector2f(mWidth / 2, mHeight / 2));
-
+	
 
 	mCollisionShape.setPointCount(4);
 	mCollisionShape.setPoint(0, sf::Vector2f(0, 0));//0,0
