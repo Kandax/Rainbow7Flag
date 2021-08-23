@@ -21,13 +21,16 @@ Game::Game()
 	mPO1.addComponent(100, 100 , lSize, lSize);
 	//mPO1.getComponent(1).fixture->SetSensor(true);
 	mPO1.getComponent(0).renderShape.setFillColor(sf::Color::Color(0,0,255,150));
-	mPO1.addComponent(0, -50, 20,50);
-	mPO1.getBody()->SetGravityScale(0);
-	mPO1.addComponent(200, 100, lSize, lSize, 10, 10);
+	//mPO1.addComponent(0, -50, 20,50);
+	//mPO1.getBody()->SetGravityScale(0);
+	//mPO1.addComponent(200, 100, lSize, lSize, 10, 10);
 	//mPO1.getComponent(0).fixture->SetDensity(10000);
 	
+	for (int i = 0; i < 10; i++) {
 
-	mListOfObjects.push_back(PolygonObject(&mWorld, b2_dynamicBody, 100, 100, 100, 100));
+
+	mListOfObjects.push_back(PolygonObject(&mWorld, b2_dynamicBody, 300+ i*10 , 100, 100, 100));
+	}
 
 
 }
@@ -100,7 +103,8 @@ void Game::input()
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space)) {
 		//mPO1.deleteParentFixture();
 		if (mListOfObjects.size() > 0) {
-			mListOfObjects.pop_back();
+			//mListOfObjects.pop_back();
+			mListOfObjects.clear();
 		}
 	}
 

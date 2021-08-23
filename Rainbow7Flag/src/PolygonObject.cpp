@@ -84,11 +84,17 @@ PolygonObject::PolygonObject(b2World* world, b2BodyType bodyType, float position
 
 PolygonObject::~PolygonObject()
 {
-	if (!isDestroyedBody) {
+	//mCompontents.clear();
+	/*if (!isDestroyedBody) {
 
 		mWorld->DestroyBody(mBody);
-	}
-	mBody = nullptr;
+	}*/
+	//mBody = nullptr;
+	//mBody->DestroyFixture(mCompontents.back().fixture);
+	
+	//mWorld->DestroyBody(mBody);
+	destroy();
+
 }
 
 void PolygonObject::update()
