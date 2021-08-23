@@ -19,6 +19,7 @@ Game::Game()
 	, mScale(16)
 	, mPO1(&mWorld, b2_dynamicBody, 100, -100, 100,100)
 	, mPOS1(&mWorld,b2_staticBody, 100, 600,200,20)
+	, mObj1(new TestObj(&mWorld, 50, 50))
 {
 	
 	
@@ -40,6 +41,11 @@ Game::Game()
 
 	mFixture = mBody->CreateFixture(&mFixtureDef);
 	mFixture2 = mBody->CreateFixture(&mFixtureDef);
+}
+
+Game::~Game()
+{
+	delete mObj1;
 }
 
 void Game::run()
@@ -85,8 +91,11 @@ void Game::input()
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space)) {
 		if (!destroyed) {
-			mWorld.DestroyBody(mBody);
-			destroyed = true;
+			//mWorld.DestroyBody(mBody);
+			//destroyed = true;
+			delete mObj1;
+			mObj1 = nullptr;
+
 		}
 	}
 
@@ -111,6 +120,8 @@ void Game::update()
 	mPOS1.update();
 	mSFBodyShape.setPosition(sf::Vector2f(mBody->GetPosition().x * mScale, mBody->GetPosition().y * mScale));
 	mSFBodyShape.setRotation(mBody->GetAngle() * ToDegrees);
+	if(mObj1 != nullptr)
+		mObj1->update();
 }
 
 void Game::render()
@@ -123,6 +134,8 @@ void Game::render()
 	mPO1.draw(&mWindow);
 	mPOS1.draw(&mWindow);
 	mWindow.draw(mSFBodyShape);
+	if (mObj1 != nullptr)
+		mObj1->draw(&mWindow);
 	mWindow.display();
 
 

@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include <iostream>
+#include <vector>
 
 
 #include "box2d/box2d.h"
@@ -9,12 +10,14 @@
 #include "ElapsedTime.h"
 #include "Object.h"
 #include "PolygonObject.h"
+#include "TestObj.h"
 
 
 class Game
 {
 public:
 	Game();
+	~Game();
 	void run();
 private:
 	void events();
@@ -56,5 +59,7 @@ private:
 	b2Fixture* mFixture2;
 
 
+	TestObj *mObj1;
+	//std::vector<TestObj> mObjects;
 };
 

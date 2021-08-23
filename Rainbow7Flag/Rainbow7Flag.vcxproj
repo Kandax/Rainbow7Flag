@@ -155,12 +155,14 @@
     <ClCompile Include="src\Main.cpp" />
     <ClCompile Include="src\Object.cpp" />
     <ClCompile Include="src\PolygonObject.cpp" />
+    <ClCompile Include="src\TestObj.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\ElapsedTime.h" />
     <ClInclude Include="src\Game.h" />
     <ClInclude Include="src\Object.h" />
     <ClInclude Include="src\PolygonObject.h" />
+    <ClInclude Include="src\TestObj.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
