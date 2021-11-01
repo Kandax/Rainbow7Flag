@@ -93,7 +93,7 @@ PolygonObject::~PolygonObject()
 	//mBody->DestroyFixture(mCompontents.back().fixture);
 	
 	//mWorld->DestroyBody(mBody);
-	destroy();
+	//destroy();
 
 }
 
