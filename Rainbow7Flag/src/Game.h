@@ -60,6 +60,7 @@ private:
 
 
 	TestObj *mObj1;
-	//std::vector<TestObj> mObjects;
+	TestObj mObj2;
+	std::vector<TestObj> mObjects;
 };
 

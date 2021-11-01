@@ -20,6 +20,7 @@ Game::Game()
 	, mPO1(&mWorld, b2_dynamicBody, 100, -100, 100,100)
 	, mPOS1(&mWorld,b2_staticBody, 100, 600,200,20)
 	, mObj1(new TestObj(&mWorld, 50, 50))
+	, mObj2(TestObj(&mWorld, 50, 50))
 {
 	
 	
@@ -41,6 +42,11 @@ Game::Game()
 
 	mFixture = mBody->CreateFixture(&mFixtureDef);
 	mFixture2 = mBody->CreateFixture(&mFixtureDef);
+
+
+	mObjects.push_back(TestObj(&mWorld, 20, 20));
+
+
 }
 
 Game::~Game()
@@ -122,6 +128,10 @@ void Game::update()
 	mSFBodyShape.setRotation(mBody->GetAngle() * ToDegrees);
 	if(mObj1 != nullptr)
 		mObj1->update();
+	//for (int i = 0; i < mObjects.size(); i++) {
+	//	mObjects[i].update();
+	//}
+	mObj2.update();
 }
 
 void Game::render()
@@ -136,6 +146,10 @@ void Game::render()
 	mWindow.draw(mSFBodyShape);
 	if (mObj1 != nullptr)
 		mObj1->draw(&mWindow);
+	//for (int i = 0; i < mObjects.size(); i++) {
+	//	mObjects[i].draw(&mWindow);
+	//}
+	mObj2.draw(&mWindow);
 	mWindow.display();
 
 

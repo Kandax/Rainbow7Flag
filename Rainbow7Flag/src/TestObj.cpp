@@ -31,14 +31,22 @@ TestObj::TestObj(b2World* world,float posX, float posY)
 
 TestObj::~TestObj()
 {
+	//mBody->DestroyFixture(mFixture);
+	//mFixture = nullptr;
+
+
 	mWorld->DestroyBody(mBody);
 	mBody = nullptr;
 }
 
 void TestObj::update()
 {
-	mSFBodyShape.setPosition(sf::Vector2f(mBody->GetPosition().x * mScale, mBody->GetPosition().y * mScale));
-	mSFBodyShape.setRotation(mBody->GetAngle() * ToDegrees);
+	if (mBody != nullptr) {
+		mSFBodyShape.setPosition(sf::Vector2f(mBody->GetPosition().x * mScale, mBody->GetPosition().y * mScale));
+		mSFBodyShape.setRotation(mBody->GetAngle() * ToDegrees);
+
+	}
+
 
 
 
@@ -46,5 +54,6 @@ void TestObj::update()
 
 void TestObj::draw(sf::RenderWindow* window)
 {
-	window->draw(mSFBodyShape);
+	if(mBody != nullptr)
+		window->draw(mSFBodyShape);
 }
